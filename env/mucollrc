@@ -1,0 +1,2 @@
+[ -f /etc/bashrc ] && . /etc/bashrc
+for setup in /opt/spack/opt/spack/*/*/*/*/linux-*/mucoll-stack-*/setup.sh; do echo "${setup}"; source "${setup}"; break; done
