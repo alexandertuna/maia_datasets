@@ -30,7 +30,8 @@ It has info about dataset production.
 - `SteeringMacros/k4Reco/steer_reco.py`:
   - Remove tracker endcap sim hits, tracker barrel digi hits, and tracker endcap digi hits from output
   - Relax OverlayMIX integration times from `-0.36, 0.36` to `-5.0, 15.0`
-  - https://github.com/alexandertuna/SteeringMacros/tree/ShrinkOutputSize
+  - https://github.com/alexandertuna/SteeringMacros/tree/MaiaLineSegmentTracking
+  - https://github.com/madbaron/SteeringMacros/pull/12
 
 ## Notes on BIB sample productions
 
