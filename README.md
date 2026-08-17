@@ -34,28 +34,36 @@ It has info about dataset production.
 
 ## Notes on BIB sample productions
 
-- simulate_bib.2026_05_14_12h00m00s
+- `bib.2026_08_14_17h50m00s`: equal-spaced layers with z-staggering
+  - Geo: https://github.com/alexandertuna/k4geo/tree/KITP_10TeV_ITOT_doublets_v07/
+  - Similar to the v05 detector, except double-layers have z-staggering to avoid inefficiencies in eta
+  - 100% BIB, no incoherent ee pairs
+- `bib.2026_08_14_17h18m00s`: super-layers with z-staggering
+  - Geo: https://github.com/alexandertuna/k4geo/tree/KITP_10TeV_ITOT_doublets_v06/
+  - Similar to the v01 detector, except double-layers have z-staggering to avoid inefficiencies in eta
+  - 100% BIB, no incoherent ee pairs
+- `maia_noodling/experiments/simulate_bib.2026_05_14_12h00m00s`
   - Geo: https://github.com/alexandertuna/k4geo/tree/KITP_10TeV_ITOT_doublets_v05/
   - Similar to the v04 geometry, except IT double-layers are also evenly spaced instead of spaced as "super-layers"
   - 100% BIB, no incoherent ee pairs
-- simulate_bib.2026_04_21_16h00m00s
+- `maia_noodling/experiments/simulate_bib.2026_04_21_16h00m00s`
   - Geo: https://github.com/alexandertuna/k4geo/tree/KITP_10TeV_ITOT_doublets_v04/
   - Similar to the v01 geometry, except OT double-layers are evenly spaced instead of spaced as "super-layers"
   - 100% BIB, no incoherent ee pairs
-- simulate_bib.2026_04_21_14h00m00s
+- `maia_noodling/experiments/simulate_bib.2026_04_21_14h00m00s`
   - Geo: https://github.com/alexandertuna/k4geo/tree/KITP_10TeV_ITOT_doublets_v03/
   - Add four more layers in the OT to make another "super-layer"
   - 100% BIB, no incoherent ee pairs
-- simulate_bib.2026_01_07_22h00m00s
+- `maia_noodling/experiments/simulate_bib.2026_01_07_22h00m00s`
   - Geo: https://github.com/alexandertuna/k4geo/tree/KITP_10TeV_ITOT_doublets_v01/
   - Decrease OT doublet spacing from 6mm to 2mm, which is the same as IT
   - Increase OT sensor size from 30mm,30mm to 60mm,60mm
   - 100% BIB, no incoherent ee pairs
-- simulate_bib.2025_10_17_10h40m00s
+- `maia_noodling/experiments/simulate_bib.2025_10_17_10h40m00s`
   - Geo: https://github.com/alexandertuna/k4geo/tree/KITP_10TeV_ITOT_doublets
   - Remake BIB after fixing bug in z-momentum of detector-simulation/utils/fluka_remix.py
   - Bug: Alex forgot to update the path for pruning away MCParticles. Bad production
-- simulate_bib.2025_10_08_09h35m49s
+- `maia_noodling/experiments/simulate_bib.2025_10_08_09h35m49s`
   - Geo: https://github.com/alexandertuna/k4geo/tree/KITP_10TeV_ITOT_doublets
   - First attempt at BIB production with modified MAIA geometry
   - 100% BIB, no incoherent ee pairs
