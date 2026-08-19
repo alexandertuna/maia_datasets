@@ -1,0 +1,22 @@
+###
+### mkdir -p logs/
+###
+# container
+# +SingularityImage = "/cvmfs/unpacked.cern.ch/ghcr.io/muoncollidersoft/mucoll-sim-alma9:v2.9.8-amd64"
+# +SingularityImage = "docker://python:3.11"
++SingularityImage = "/cvmfs/unpacked.cern.ch/registry.hub.docker.com/library/python:3.11"
+
+executable = postprocess_one_file.sh
+arguments  = $(FILENUM)
+output     = logs/postprocess_one_file_$(FILENUM).$(ClusterId).$(ProcId).out
+error      = logs/postprocess_one_file_$(FILENUM).$(ClusterId).$(ProcId).err
+log        = logs/condor.$(ClusterId).$(ProcId).log
+
+# resources
+request_cpus   = 2
+request_memory = 4GB
+request_disk   = 2GB
++DESIRED_Sites = "T2_US_UCSD"
+
+# launch
+queue FILENUM from postprocess_one_file.filenums.txt
