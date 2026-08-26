@@ -35,6 +35,9 @@ It has info about dataset production.
 
 ## Notes on BIB sample productions
 
+- `bib.2026_08_21_10h36m00s`: original MAIA detector
+  - Geo: https://github.com/key4hep/k4geo/commit/0c94690f46ccd666b0e8a82304e7c29742512e77
+  - 100% BIB, no incoherent ee pairs
 - `bib.2026_08_14_17h50m00s`: equal-spaced layers with z-staggering
   - Geo: https://github.com/alexandertuna/k4geo/tree/KITP_10TeV_ITOT_doublets_v07/
   - Similar to the v05 detector, except double-layers have z-staggering to avoid inefficiencies in eta
