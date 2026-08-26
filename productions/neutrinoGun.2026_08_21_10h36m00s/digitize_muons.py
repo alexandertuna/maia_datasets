@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 
 CODE = "/ceph/users/atuna/work/maia"
-K4GEO_DIR = f"{CODE}/k4geov07"
+K4GEO_DIR = f"{CODE}/k4geoMain"
 COMPACT = f"{K4GEO_DIR}/MuColl/MAIA/compact/MAIA_v0/MAIA_v0.xml"
 STEER_SIM = f"{CODE}/SteeringMacrosTuna/Sim/sim_steer_GEN_CONDOR.py"
 STEER_RECO = f"{CODE}/SteeringMacrosTuna/k4Reco/steer_reco.py"
