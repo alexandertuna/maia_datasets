@@ -12,16 +12,17 @@ TYPEEVENT="neutrinoGun"
 # source /opt/spack/opt/spack/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/linux-x86_64/mucoll-stack-master-2wtmg3ohr26uckseodhqjfjaw7mijwil/setup.sh
 # export MARLIN_DLL=$(readlink -e ${CODE}/MyBIBUtils/build/lib/libMyBIBUtils.so):${MARLIN_DLL}
 
-# for RESOLUTIONUV in 0.000 0.005 0.010 0.020; do
-for RESOLUTIONUV in 0.010; do
+# for RESOLUTIONUV in 0.000 0.005 0.010 0.020 0.050; do
+for RESOLUTIONUV in 0.000 0.020 0.050; do
 
     mkdir -p ${RESOLUTIONUV}
+    cd ${RESOLUTIONUV}
 
-    for NUM in $(seq 30 49); do
+    for NUM in $(seq 20 49); do
 
         # run
         echo "Running ${RESOLUTIONUV} ${NUM} ..."
-        time python digitize_muons.py \
+        time python ../digitize_muons.py \
              --gen \
              --sim \
              --digi \
@@ -31,10 +32,12 @@ for RESOLUTIONUV in 0.010; do
              --data ${DATA} \
              --typeevent ${TYPEEVENT} &> neutrinoGun_log_${NUM}.txt
 
-        echo "Moving ..."
-        mv neutrinoGun_*  ${RESOLUTIONUV}/
+        # echo "Moving ..."
+        # mv neutrinoGun_*  ${RESOLUTIONUV}/
 
     done
+
+    cd ../
 
 done
 
