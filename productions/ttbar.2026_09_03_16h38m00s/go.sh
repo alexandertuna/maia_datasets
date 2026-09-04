@@ -2,6 +2,15 @@
 set -eo pipefail
 
 #
+# 1. set up environment before running
+# export PYTHONPATH=""
+# python -m venv ./env
+# ./env/bin/python -m pip -q install --upgrade pip
+# ./env/bin/python -m pip -q install awkward fastjet numpy tqdm uproot vector scipy pydantic comet_ml pyyaml pyarrow
+#
+
+#
+# 2. and activate container like this when running locally
 # apptainer run /cvmfs/unpacked.cern.ch/ghcr.io/muoncollidersoft/mucoll-sim-alma9:v2.9.8-amd64
 # setup_mucoll
 # CODE=/ceph/users/atuna/work/maia
@@ -16,16 +25,25 @@ TOPDIR=/ceph/users/atuna/work/maia/maia_datasets/productions/ttbar.2026_09_03_16
 EVENTS_PER_JOB=10
 
 #
+# steering
+#
+DO_GEN=false
+DO_SIM=false
+DO_REC=false
+DO_POST=true
+
+#
 # paths
 #
 CODE=/ceph/users/atuna/work/maia
 COMPACT=${CODE}/detector-simulation/geometries/MAIA_v0/MAIA_v0.xml
-PFLOW=${CODE}/maia/mlpf_postprocess/particleflow
+PFLOW=${CODE}/mlpf_postprocess/particleflow
 
 #
 # file names
 #
 TYPEEVENT="ttbar"
+GEN_TEMPLATE=p8_mumu_tt_ecm10000_1event.cmd
 GEN_CMD=p8_mumu_tt_ecm10000_${SEED}.cmd
 GEN_HEPMC=${TYPEEVENT}_${SEED}.hepmc
 SIM_STEER=${TOPDIR}/sim_steer_GEN_CONDOR.py
@@ -42,45 +60,55 @@ POST_LOG=log_post_${SEED}.txt
 #
 # gen
 #
-echo "Running gen ${SEED} ..."
-cp ${TOPDIR}/p8_mumu_tt_ecm10000.cmd ${GEN_CMD}
-sed -i s/12345/${SEED}/g ${GEN_CMD}
-k4run \
-    pythia.py \
-    --Dumper.Filename ${GEN_HEPMC} \
-    --Pythia8.PythiaInterface.pythiacard ${GEN_CMD} \
-    &> ${GEN_LOG}
+if $DO_GEN; then
+    echo "Running gen ${SEED} ..."
+    cp ${TOPDIR}/${GEN_TEMPLATE} ${GEN_CMD}
+    sed -i s/12345/${SEED}/g ${GEN_CMD}
+    k4run \
+        pythia.py \
+        --Dumper.Filename ${GEN_HEPMC} \
+        --Pythia8.PythiaInterface.pythiacard ${GEN_CMD} \
+        &> ${GEN_LOG}
+fi
 
 #
 # sim
 #
-echo "Running sim ${SEED} ..."
-ddsim \
-    --inputFile ${GEN_HEPMC} \
-    --steeringFile ${SIM_STEER} \
-    --compactFile ${COMPACT} \
-    --numberOfEvents ${EVENTS_PER_JOB} \
-    --outputFile ${SIM_SLCIO} \
-    &> ${SIM_LOG}
+if $DO_SIM; then
+    echo "Running sim ${SEED} ..."
+    ddsim \
+        --inputFile ${GEN_HEPMC} \
+        --steeringFile ${SIM_STEER} \
+        --compactFile ${COMPACT} \
+        --numberOfEvents ${EVENTS_PER_JOB} \
+        --outputFile ${SIM_SLCIO} \
+        &> ${SIM_LOG}
+fi
 
 #
 # rec
 #
-echo "Running rec ${SEED} ..."
-# k4run ${REC_STEER} \
-#      --TypeEvent ${TYPEEVENT} \
-#      --InFileName ${SEED} \
-#      --code ${CODE} \
-#      --skipTrackerConing \
-#      &> ${REC_LOG}
-# lcio2edm4hep ${REC_SLCIO} ${REC_ROOT} ${REC_PATCH}
+if $DO_REC; then
+    echo "Running rec ${SEED} ..."
+    k4run ${REC_STEER} \
+         --TypeEvent ${TYPEEVENT} \
+         --InFileName ${SEED} \
+         --code ${CODE} \
+         --skipTrackerConing \
+         &> ${REC_LOG}
+    lcio2edm4hep ${REC_SLCIO} ${REC_ROOT} ${REC_PATCH}
+fi
 
 #
 # postprocess
 #
-# python \
-#     ${PFLOW}/mlpf/data/key4hep/postprocessing.py \
-#     --input ${REC_ROOT} \
-#     --outpath $(pwd) \
-#     --detector maia \
-#     &> ${POST_LOG}
+if $DO_POST; then
+    echo "Running post-processing ${SEED} ..."
+    export PYTHONPATH=${PFLOW}
+    ${TOPDIR}/env/bin/python \
+        ${PFLOW}/mlpf/data/key4hep/postprocessing.py \
+        --input ${REC_ROOT} \
+        --outpath $(pwd) \
+        --detector maia \
+        &> ${POST_LOG}
+fi
