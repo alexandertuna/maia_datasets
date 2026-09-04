@@ -20,16 +20,20 @@ set -eo pipefail
 #
 # command line args
 #
-SEED=10042
+if [ -z "$1" ]; then
+    echo "Usage: $0 SEED"
+    exit 1
+fi
+SEED=${1}
 TOPDIR=/ceph/users/atuna/work/maia/maia_datasets/productions/ttbar.2026_09_03_16h38m00s
-EVENTS_PER_JOB=10
+# EVENTS_PER_JOB=1
 
 #
 # steering
 #
-DO_GEN=false
-DO_SIM=false
-DO_REC=false
+DO_GEN=true
+DO_SIM=true
+DO_REC=true
 DO_POST=true
 
 #
@@ -80,9 +84,9 @@ if $DO_SIM; then
         --inputFile ${GEN_HEPMC} \
         --steeringFile ${SIM_STEER} \
         --compactFile ${COMPACT} \
-        --numberOfEvents ${EVENTS_PER_JOB} \
         --outputFile ${SIM_SLCIO} \
         &> ${SIM_LOG}
+        # --numberOfEvents ${EVENTS_PER_JOB} \
 fi
 
 #
