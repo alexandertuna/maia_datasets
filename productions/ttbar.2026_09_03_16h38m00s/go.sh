@@ -47,7 +47,7 @@ PFLOW=${CODE}/mlpf_postprocess/particleflow
 # file names
 #
 TYPEEVENT="ttbar"
-GEN_TEMPLATE=p8_mumu_tt_ecm10000_1event.cmd
+GEN_TEMPLATE=p8_mumu_tt_ecm10000.cmd
 GEN_CMD=p8_mumu_tt_ecm10000_${SEED}.cmd
 GEN_HEPMC=${TYPEEVENT}_${SEED}.hepmc
 SIM_STEER=${TOPDIR}/sim_steer_GEN_CONDOR.py
@@ -82,9 +82,9 @@ if $DO_SIM; then
     echo "Running sim ${SEED} ..."
     ddsim \
         --inputFile ${GEN_HEPMC} \
+        --outputFile ${SIM_SLCIO} \
         --steeringFile ${SIM_STEER} \
         --compactFile ${COMPACT} \
-        --outputFile ${SIM_SLCIO} \
         &> ${SIM_LOG}
         # --numberOfEvents ${EVENTS_PER_JOB} \
 fi

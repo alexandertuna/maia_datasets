@@ -12,7 +12,7 @@ from Gaudi.Configuration import *
 from Configurables import ApplicationMgr
 
 ApplicationMgr().EvtSel = "NONE"
-ApplicationMgr().EvtMax = 10
+ApplicationMgr().EvtMax = 1
 ApplicationMgr().OutputLevel = INFO
 ApplicationMgr().ExtSvc += ["RndmGenSvc"]
 
