@@ -3,6 +3,7 @@ set -eo pipefail
 
 #
 # 1. set up environment before running
+# NB: set up this environment from within the container!
 # export PYTHONPATH=""
 # python -m venv ./env
 # ./env/bin/python -m pip -q install --upgrade pip
@@ -26,7 +27,7 @@ if [ -z "$1" ]; then
 fi
 SEED=${1}
 TOPDIR=/ceph/users/atuna/work/maia/maia_datasets/productions/ttbar.2026_09_03_16h38m00s
-# EVENTS_PER_JOB=1
+EVENTS_PER_JOB=1
 
 #
 # steering
@@ -42,6 +43,15 @@ DO_POST=true
 CODE=/ceph/users/atuna/work/maia
 COMPACT=${CODE}/detector-simulation/geometries/MAIA_v0/MAIA_v0.xml
 PFLOW=${CODE}/mlpf_postprocess/particleflow
+
+#
+# setup if necessary
+#
+if ! command -v ddsim >/dev/null 2>&1; then
+    echo "Setting env ${SEED} at $(date) ..."
+    source /opt/spack/opt/spack/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/*/mucol*/setup.sh
+    export MARLIN_DLL=$(readlink -e ${CODE}/MyBIBUtils/build/lib/libMyBIBUtils.so):${MARLIN_DLL}
+fi
 
 #
 # file names
@@ -65,11 +75,11 @@ POST_LOG=log_post_${SEED}.txt
 # gen
 #
 if $DO_GEN; then
-    echo "Running gen ${SEED} ..."
+    echo "Running gen ${SEED} at $(date) ..."
     cp ${TOPDIR}/${GEN_TEMPLATE} ${GEN_CMD}
     sed -i s/12345/${SEED}/g ${GEN_CMD}
     k4run \
-        pythia.py \
+        ${TOPDIR}/pythia.py \
         --Dumper.Filename ${GEN_HEPMC} \
         --Pythia8.PythiaInterface.pythiacard ${GEN_CMD} \
         &> ${GEN_LOG}
@@ -79,21 +89,22 @@ fi
 # sim
 #
 if $DO_SIM; then
-    echo "Running sim ${SEED} ..."
+    echo "Running sim ${SEED} at $(date) ..."
     ddsim \
         --inputFile ${GEN_HEPMC} \
         --outputFile ${SIM_SLCIO} \
         --steeringFile ${SIM_STEER} \
         --compactFile ${COMPACT} \
+        --numberOfEvents ${EVENTS_PER_JOB} \
+        --random.seed ${SEED} \
         &> ${SIM_LOG}
-        # --numberOfEvents ${EVENTS_PER_JOB} \
 fi
 
 #
 # rec
 #
 if $DO_REC; then
-    echo "Running rec ${SEED} ..."
+    echo "Running rec ${SEED} at $(date) ..."
     k4run ${REC_STEER} \
          --TypeEvent ${TYPEEVENT} \
          --InFileName ${SEED} \
@@ -107,7 +118,7 @@ fi
 # postprocess
 #
 if $DO_POST; then
-    echo "Running post-processing ${SEED} ..."
+    echo "Running post-processing ${SEED} at $(date) ..."
     export PYTHONPATH=${PFLOW}
     ${TOPDIR}/env/bin/python \
         ${PFLOW}/mlpf/data/key4hep/postprocessing.py \
