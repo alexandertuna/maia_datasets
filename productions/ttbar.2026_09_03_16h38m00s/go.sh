@@ -36,6 +36,7 @@ DO_GEN=true
 DO_SIM=true
 DO_REC=true
 DO_POST=true
+DO_CLEANUP=true
 
 #
 # paths
@@ -126,4 +127,12 @@ if $DO_POST; then
         --outpath $(pwd) \
         --detector maia \
         &> ${POST_LOG}
+fi
+
+#
+# cleanup
+#
+if $DO_CLEANUP; then
+    echo "Running cleanup ${SEED} at $(date) ..."
+    rm -f ${GEN_CMD} ${GEN_HEPMC} ${SIM_SLCIO} ${REC_SLCIO} ${REC_ROOT}
 fi
