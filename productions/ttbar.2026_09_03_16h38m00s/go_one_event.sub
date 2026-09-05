@@ -1,0 +1,20 @@
+###
+### mkdir -p logs/
+###
+# container
++SingularityImage = "/cvmfs/unpacked.cern.ch/ghcr.io/muoncollidersoft/mucoll-sim-alma9:v2.9.8-amd64"
+
+executable = go.sh
+arguments  = $(SEED)
+output     = logs/go_$(SEED).$(ClusterId).$(ProcId).out
+error      = logs/go_$(SEED).$(ClusterId).$(ProcId).err
+log        = logs/condor.$(ClusterId).$(ProcId).log
+
+# resources
+request_cpus   = 2
+request_memory = 8GB
+request_disk   = 2GB
++DESIRED_Sites = "T2_US_UCSD"
+
+# launch
+queue SEED from go_one_event.seeds.txt
