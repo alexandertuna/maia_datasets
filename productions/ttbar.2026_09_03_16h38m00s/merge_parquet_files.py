@@ -22,12 +22,18 @@ def options():
 
 
 def merge_parquet_files(directory, output_file):
+    print(f"Listing parquet files ...")
     parquet_files = [os.path.join(directory, f) for f in os.listdir(directory) if f.endswith('.parquet')]
     if not parquet_files:
         raise ValueError("No parquet files found in the directory")
 
+    print(f"Reading {len(parquet_files)} parquet files ...")
     tables = [pq.read_table(f) for f in parquet_files]
+
+    print(f"Concatenating ...")
     combined_table = pa.concat_tables(tables)
+
+    print(f"Writing ...")
     pq.write_table(combined_table, output_file)
 
 
