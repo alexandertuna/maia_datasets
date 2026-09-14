@@ -4,7 +4,7 @@ set -eo pipefail
 MAX_JOBS=10
 CODE=/ceph/users/atuna/work/maia
 TYPEEVENT="muonGun_pT_2p0_2p1"
-DETECTOR="v07"
+DETECTOR="v06"
 
 # env
 # it would be cool if setup_mucoll existed out-of-the-box
@@ -13,13 +13,13 @@ DETECTOR="v07"
 # export MARLIN_DLL=$(readlink -e ${CODE}/MyBIBUtils/build/lib/libMyBIBUtils.so):${MARLIN_DLL}
 
 # for RESOLUTIONUV in 0.000 0.005 0.010 0.020; do
-for RESOLUTIONUV in 0.000 0.050; do
+for RESOLUTIONUV in 0.020; do
 
     echo "${DETECTOR}/${RESOLUTIONUV} ..."
     mkdir -p ${DETECTOR}/${RESOLUTIONUV}
     cd ${DETECTOR}/${RESOLUTIONUV}
 
-    for NUM in {300..399}; do
+    for NUM in {310..399}; do
 
         while (( $(jobs -rp | wc -l) >= MAX_JOBS )); do
             echo "Waiting at $(date) ..."
