@@ -7,7 +7,7 @@ import os
 from pathlib import Path
 
 CODE = "/ceph/users/atuna/work/maia"
-K4GEO_DIR = f"{CODE}/k4geov07"
+K4GEO_DIR = f"{CODE}/k4geov06"
 COMPACT = f"{K4GEO_DIR}/MuColl/MAIA/compact/MAIA_v0/MAIA_v0.xml"
 STEER_SIM = f"{CODE}/SteeringMacrosTuna/Sim/sim_steer_GEN_CONDOR.py"
 STEER_RECO = f"{CODE}/SteeringMacrosTuna/k4Reco/steer_reco.py"
@@ -169,14 +169,14 @@ def gen_command_hbb(events: int, num: int, typeevent: str):
                             typeevent=typeevent,
                             num=num)
     rm = remove_whizard_output()
-    cmd = f"time whizard {local_filename} && {rm}"
+    cmd = f"whizard {local_filename} && {rm}"
     return cmd
 
 
 def sim_command(events: int, num: int, typeevent: str):
     suffix = get_suffix(typeevent)
     inp = f"{typeevent}_gen_{num}.{suffix}"
-    cmd = f"time ddsim \
+    cmd = f"ddsim \
         --inputFile {inp} \
         --steeringFile {STEER_SIM} \
         --compactFile {COMPACT} \
@@ -192,7 +192,7 @@ def digi_command(events: int, num: int, typeevent: str, steer: str, data: str, b
     enable_ip = "--enableIP" if ip else ""
     enable_uncompressed = "--compressionLevel 0" if uncompressed else ""
     enable_mix = f"--overlayMixNumberBackground {overlayMixNumberBackground}" if overlayMixNumberBackground else ""
-    cmd = f"time k4run \
+    cmd = f"k4run \
     {steer} \
     {enable_mix} \
     {enable_bib} \
