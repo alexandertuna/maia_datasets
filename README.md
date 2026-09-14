@@ -74,6 +74,14 @@ It has info about dataset production.
 
 ## Miscellaneous
 
+### Compiling MyBibUtils
+
+```
+mkdir build && cd build
+cmake ..
+make -j 8
+```
+
 ### Resources for condor jobs
 
 Here are some one-liners for reporting the memory and disk usage of condor jobs:
