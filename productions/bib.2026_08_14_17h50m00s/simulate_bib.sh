@@ -39,12 +39,12 @@ for INVERT_Z in 0 1; do
     echo "Processing ${1} with INVERT_Z=${INVERT_Z} -> LABEL=${LABEL}"
 
     BIBINPUT=bibinput_${1}.slcio
-    time python3 ${CODE}/detector-simulation/utils/fluka_remix.py -i ${INVERT_Z} -n ${TWO} ${DATAMUC}/FLUKA/summary${1}_DET_IP.dat ${BIBINPUT}
+    python3 ${CODE}/detector-simulation/utils/fluka_remix.py -i ${INVERT_Z} -n ${TWO} ${DATAMUC}/FLUKA/summary${1}_DET_IP.dat ${BIBINPUT}
 
     cp ${CODE}/SteeringMacrosTuna/Sim/sim_steer_BIB_CONDOR.py ./sim_EVENT.py
     sed -i 's/OUTFILENAME/"BIB_sim.slcio"/g' sim_EVENT.py
 
-    time ddsim --steeringFile sim_EVENT.py --inputFiles ${BIBINPUT} --compactFile ${COMPACT}
+    ddsim --steeringFile sim_EVENT.py --inputFiles ${BIBINPUT} --compactFile ${COMPACT}
     rm -f ${BIBINPUT} sim_EVENT.py
     mv -f BIB_sim.slcio ${LABEL}_BIB_sim_${1}.slcio
 
