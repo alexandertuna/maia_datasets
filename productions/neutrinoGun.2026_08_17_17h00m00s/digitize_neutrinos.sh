@@ -13,12 +13,12 @@ TYPEEVENT="neutrinoGun"
 # export MARLIN_DLL=$(readlink -e ${CODE}/MyBIBUtils/build/lib/libMyBIBUtils.so):${MARLIN_DLL}
 
 # for RESOLUTIONUV in 0.000 0.005 0.010 0.020 0.050; do
-for RESOLUTIONUV in 0.000 0.020 0.050; do
+for RESOLUTIONUV in 0.020; do
 
     mkdir -p ${RESOLUTIONUV}
     cd ${RESOLUTIONUV}
 
-    for NUM in $(seq 20 49); do
+    for NUM in $(seq 0 9); do
 
         # run
         echo "Running ${RESOLUTIONUV} ${NUM} ..."
