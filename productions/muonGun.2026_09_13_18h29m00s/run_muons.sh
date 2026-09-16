@@ -4,7 +4,7 @@ set -eo pipefail
 MAX_JOBS=10
 CODE=/ceph/users/atuna/work/maia
 TYPEEVENT="muonGun_pT_2p0_2p1"
-DETECTOR="v07"
+DETECTOR="v06"
 
 # env
 # it would be cool if setup_mucoll existed out-of-the-box
