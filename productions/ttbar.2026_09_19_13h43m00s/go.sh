@@ -16,7 +16,7 @@ if [ -z "$1" ]; then
 fi
 SEED=${1}
 TOPDIR=/ceph/users/atuna/work/maia/maia_datasets/productions/ttbar.2026_09_19_13h43m00s
-EVENTS_PER_JOB=2 # 10
+EVENTS_PER_JOB=10
 
 #
 # steering
