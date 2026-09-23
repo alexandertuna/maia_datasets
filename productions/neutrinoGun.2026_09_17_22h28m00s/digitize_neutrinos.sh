@@ -32,7 +32,6 @@ for RESOLUTIONUV in 0.010; do
              --ResolutionUV ${RESOLUTIONUV} \
              --overlayMixNumberBackground ${NBKG} \
              --data ${DATA} \
-             --uncompressed \
              --typeevent ${TYPEEVENT} &> neutrinoGun_log_${NUM}.txt
     done
 
