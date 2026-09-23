@@ -5,7 +5,7 @@ set -eo pipefail
 CODE=/ceph/users/atuna/work/maia
 DATA=${CODE}/maia_datasets/productions/bib.2026_08_14_17h18m00s
 TYPEEVENT="neutrinoGun"
-NBKG="4998"
+NBKG="3332"
 
 # env
 # it would be cool if setup_mucoll existed out-of-the-box
@@ -19,7 +19,7 @@ for RESOLUTIONUV in 0.010; do
     mkdir -p ${RESOLUTIONUV}
     cd ${RESOLUTIONUV}
 
-    for NUM in $(seq 0 0); do
+    for NUM in $(seq 1 9); do
 
         # run
         echo "Running ${RESOLUTIONUV} ${NUM} ..."
@@ -32,8 +32,8 @@ for RESOLUTIONUV in 0.010; do
              --ResolutionUV ${RESOLUTIONUV} \
              --overlayMixNumberBackground ${NBKG} \
              --data ${DATA} \
+             --uncompressed \
              --typeevent ${TYPEEVENT} &> neutrinoGun_log_${NUM}.txt
-             # --uncompressed \
     done
 
     cd ../
