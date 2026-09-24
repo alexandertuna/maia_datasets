@@ -5,37 +5,40 @@ set -eo pipefail
 CODE=/ceph/users/atuna/work/maia
 DATA=${CODE}/maia_datasets/productions/bib.2026_08_14_17h18m00s
 TYPEEVENT="neutrinoGun"
-NBKG="1666"
 
 # env
 # it would be cool if setup_mucoll existed out-of-the-box
 # setup_mucoll
-# source /opt/spack/opt/spack/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/linux-x86_64/mucoll-stack-*/setup.sh
-# export MARLIN_DLL=$(readlink -e ${CODE}/MyBIBUtils/build/lib/libMyBIBUtils.so):${MARLIN_DLL}
+source /opt/spack/opt/spack/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/linux-x86_64/mucoll-stack-*/setup.sh
+export MARLIN_DLL=$(readlink -e ${CODE}/MyBIBUtils/build/lib/libMyBIBUtils.so):${MARLIN_DLL}
 
-for RESOLUTIONUV in 0.000 0.010 0.020; do
+for NBKG in 500 666 1000 1166 1333 1500; do
 
-    mkdir -p ${RESOLUTIONUV}
-    cd ${RESOLUTIONUV}
+    # for RESOLUTIONUV in 0.000 0.005 0.010 0.020; do
+    for RESOLUTIONUV in 0.010; do
 
-    for NUM in $(seq 0 9); do
+        mkdir -p ${NBKG}_${RESOLUTIONUV}
+        cd ${NBKG}_${RESOLUTIONUV}
 
-        # run
-        echo "Running ${RESOLUTIONUV} ${NUM} ..."
-        python ../digitize_muons.py \
-             --gen \
-             --sim \
-             --digi \
-             --bib \
-             --num ${NUM} \
-             --ResolutionUV ${RESOLUTIONUV} \
-             --overlayMixNumberBackground ${NBKG} \
-             --data ${DATA} \
-             --typeevent ${TYPEEVENT} &> neutrinoGun_log_${NUM}.txt
+        for NUM in $(seq 0 9); do
+
+            # run
+            echo "Running ${RESOLUTIONUV} ${NUM} ${NBKG} ..."
+            python ../digitize_muons.py \
+                   --gen \
+                   --sim \
+                   --digi \
+                   --bib \
+                   --num ${NUM} \
+                   --ResolutionUV ${RESOLUTIONUV} \
+                   --overlayMixNumberBackground ${NBKG} \
+                   --data ${DATA} \
+                   --typeevent ${TYPEEVENT} &> neutrinoGun_log_${NUM}.txt
+        done
+
+        cd ../
 
     done
-
-    cd ../
 
 done
 
