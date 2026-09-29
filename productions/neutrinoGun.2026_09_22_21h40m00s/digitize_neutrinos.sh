@@ -13,7 +13,7 @@ source /opt/spack/opt/spack/__spack_path_placeholder__/__spack_path_placeholder_
 export MARLIN_DLL=$(readlink -e ${CODE}/MyBIBUtils/build/lib/libMyBIBUtils.so):${MARLIN_DLL}
 
 # for NBKG in 500 666 1000 1166 1333 1500; do
-for NBKG in 1333 1500; do
+for NBKG in 1833 1999; do
 
     # for RESOLUTIONUV in 0.000 0.005 0.010 0.020; do
     for RESOLUTIONUV in 0.010; do
