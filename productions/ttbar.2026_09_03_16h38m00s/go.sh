@@ -7,7 +7,7 @@ set -eo pipefail
 # export PYTHONPATH=""
 # python -m venv ./env
 # ./env/bin/python -m pip -q install --upgrade pip
-# ./env/bin/python -m pip -q install awkward fastjet numpy tqdm uproot vector scipy pydantic comet_ml pyyaml pyarrow
+# ./env/bin/python -m pip -q install awkward fastjet numpy tqdm uproot vector scipy pydantic comet_ml pyyaml pyarrow numba
 #
 
 #
