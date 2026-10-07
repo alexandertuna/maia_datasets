@@ -629,7 +629,7 @@ MyEcalBarrelSelector.Parameters = {
     "ThresholdsFilePath": [f"{the_args.code}/MyBIBUtils/data/ECAL_Thresholds_10TeV.root"],
     "Nsigma": ["0"],
     "TimeWindowMin": ["-0.3"],
-    "TimeWindowMax": ["0.3"],
+    "TimeWindowMax": ["1.0"],
     "DoBIBsubtraction": ["false"]
 }
 
@@ -644,7 +644,7 @@ MyEcalEndcapSelector.Parameters = {
     "ThresholdsFilePath": [f"{the_args.code}/MyBIBUtils/data/ECAL_Thresholds_10TeV.root"],
     "Nsigma": ["0"],
     "TimeWindowMin": ["-0.3"],
-    "TimeWindowMax": ["0.3"],
+    "TimeWindowMax": ["1.0"],
     "DoBIBsubtraction": ["false"]
 }
 
@@ -661,7 +661,7 @@ MyHcalBarrelSelector.Parameters = {
     "FlatThreshold": ["5e-05"],
     "Nsigma": ["0"],
     "TimeWindowMin": ["-0.3"],
-    "TimeWindowMax": ["0.3"],
+    "TimeWindowMax": ["10.0"],
     "DoBIBsubtraction": ["false"]
 }
 
@@ -677,7 +677,7 @@ MyHcalEndcapSelector.Parameters = {
     "FlatThreshold": ["5e-05"],
     "Nsigma": ["0"],
     "TimeWindowMin": ["-0.3"],
-    "TimeWindowMax": ["0.3"],
+    "TimeWindowMax": ["10.0"],
     "DoBIBsubtraction": ["false"]
 }
 
