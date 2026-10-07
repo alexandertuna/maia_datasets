@@ -11,11 +11,14 @@ set -eo pipefail
 #
 
 #
-# 2. and activate container like this when running locally
+# 2a. and activate container like this when running locally
 # apptainer run /cvmfs/unpacked.cern.ch/ghcr.io/muoncollidersoft/mucoll-sim-alma9:v2.9.8-amd64
 # setup_mucoll
 # CODE=/ceph/users/atuna/work/maia
 # export MARLIN_DLL=$(readlink -e ${CODE}/MyBIBUtils/build/lib/libMyBIBUtils.so):${MARLIN_DLL}
+#
+# 2b. alternatively, you can run locally like:
+# apptainer exec /cvmfs/unpacked.cern.ch/ghcr.io/muoncollidersoft/mucoll-sim-ubuntu:v2.9.8-amd64 ./go.sh 100000
 #
 
 #
