@@ -9,6 +9,10 @@ import os
 from GaudiKernel import SystemOfUnits as units
 from Gaudi.Configuration import *
 
+from Configurables import HepRndm__Engine_CLHEP__RanluxEngine_ as RndmEngine
+rndmEngine = RndmEngine("RndmGenSvc.Engine")
+rndmEngine.Seeds = [1234567]
+
 from Configurables import ApplicationMgr
 
 ApplicationMgr().EvtSel = "NONE"
@@ -25,10 +29,10 @@ ApplicationMgr().ExtSvc += [podioevent]
 from Configurables import GaussSmearVertex
 
 smeartool = GaussSmearVertex()
-smeartool.xVertexSigma = 0.5 * units.mm
-smeartool.yVertexSigma = 0.5 * units.mm
-smeartool.zVertexSigma = 40.0 * units.mm
-smeartool.tVertexSigma = 180.0 * units.picosecond
+smeartool.xVertexSigma = 1.0e-3 * units.mm
+smeartool.yVertexSigma = 1.0e-3 * units.mm
+smeartool.zVertexSigma = 1.5 * units.mm
+smeartool.tVertexSigma = 5.0 * units.picosecond
 
 from Configurables import PythiaInterface
 

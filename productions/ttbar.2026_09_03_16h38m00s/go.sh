@@ -83,6 +83,7 @@ if $DO_GEN; then
         ${TOPDIR}/pythia.py \
         --Dumper.Filename ${GEN_HEPMC} \
         --Pythia8.PythiaInterface.pythiacard ${GEN_CMD} \
+        --RndmGenSvc.Engine.Seeds ${SEED} \
         &> ${GEN_LOG}
 fi
 
