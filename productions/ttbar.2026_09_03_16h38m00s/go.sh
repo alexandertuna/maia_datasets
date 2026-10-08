@@ -5,20 +5,20 @@ set -eo pipefail
 # 1. set up environment before running
 # NB: set up this environment from within the container!
 # export PYTHONPATH=""
-# python -m venv ./env
-# ./env/bin/python -m pip -q install --upgrade pip
-# ./env/bin/python -m pip -q install awkward fastjet numpy tqdm uproot vector scipy pydantic comet_ml pyyaml pyarrow numba
+# python -m venv ./env_ubuntu24
+# ./env_ubuntu24/bin/python -m pip -q install --upgrade pip
+# ./env_ubuntu24/bin/python -m pip -q install awkward fastjet numpy tqdm uproot vector scipy pydantic comet_ml pyyaml pyarrow numba
 #
 
 #
 # 2a. and activate container like this when running locally
-# apptainer run /cvmfs/unpacked.cern.ch/ghcr.io/muoncollidersoft/mucoll-sim-alma9:v2.9.8-amd64
+# apptainer run /cvmfs/unpacked.cern.ch/ghcr.io/muoncollidersoft/mucoll-sim-ubuntu24:v2.9.8-amd64
 # setup_mucoll
 # CODE=/ceph/users/atuna/work/maia
 # export MARLIN_DLL=$(readlink -e ${CODE}/MyBIBUtils/build/lib/libMyBIBUtils.so):${MARLIN_DLL}
 #
 # 2b. alternatively, you can run locally like:
-# apptainer exec /cvmfs/unpacked.cern.ch/ghcr.io/muoncollidersoft/mucoll-sim-ubuntu:v2.9.8-amd64 ./go.sh 100000
+# apptainer exec /cvmfs/unpacked.cern.ch/ghcr.io/muoncollidersoft/mucoll-sim-ubuntu24:v2.9.8-amd64 ./go.sh 100000
 #
 
 #
@@ -125,7 +125,7 @@ fi
 if $DO_POST; then
     echo "Running post-processing ${SEED} at $(date) ..."
     export PYTHONPATH=${PFLOW}
-    ${TOPDIR}/env/bin/python \
+    ${TOPDIR}/env_ubuntu24/bin/python \
         ${PFLOW}/mlpf/data/key4hep/postprocessing.py \
         --input ${REC_ROOT} \
         --outpath $(pwd) \
