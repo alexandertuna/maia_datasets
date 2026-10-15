@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+#
+# Run me like:
+#  apptainer exec /cvmfs/unpacked.cern.ch/ghcr.io/muoncollidersoft/mucoll-sim-ubuntu24:v2.9.8-amd64 ./digitize_neutrinos.sh
+#
 set -eo pipefail
 
 # paths
@@ -9,11 +13,11 @@ TYPEEVENT="neutrinoGun"
 # env
 # it would be cool if setup_mucoll existed out-of-the-box
 # setup_mucoll
-# source /opt/spack/opt/spack/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/linux-x86_64/mucoll-stack-master-2wtmg3ohr26uckseodhqjfjaw7mijwil/setup.sh
-# export MARLIN_DLL=$(readlink -e ${CODE}/MyBIBUtils/build/lib/libMyBIBUtils.so):${MARLIN_DLL}
+source /opt/spack/opt/spack/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/__spack_path_placeholder__/linux-x86_64/mucoll-stack-*/setup.sh
+export MARLIN_DLL=$(readlink -e ${CODE}/MyBIBUtils/build/lib/libMyBIBUtils.so):${MARLIN_DLL}
 
 # for RESOLUTIONUV in 0.000 0.005 0.010 0.020 0.050; do
-for RESOLUTIONUV in 0.020; do
+for RESOLUTIONUV in 0.050; do
 
     mkdir -p ${RESOLUTIONUV}
     cd ${RESOLUTIONUV}
