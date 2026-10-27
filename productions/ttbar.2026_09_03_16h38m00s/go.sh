@@ -39,7 +39,7 @@ DO_GEN=true
 DO_SIM=true
 DO_REC=true
 DO_POST=true
-DO_CLEANUP=true
+DO_CLEANUP=false
 
 #
 # paths
