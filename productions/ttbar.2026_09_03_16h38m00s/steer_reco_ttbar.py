@@ -743,7 +743,7 @@ DDMarlinPandora.Parameters = {
     "MinTrackECalDistanceFromIp": ["0"],
     "MinTrackHits": ["0"],
 #    "MuonBarrelBField": ["5.0"],
-    "MuonBarrelBField": ["0.0001"],
+    "MuonBarrelBField": ["-0.937"], # actual fix
     "MuonCaloHitCollections": ["MUON"],
 #    "MuonEndCapBField": ["5.0"],
     "MuonEndCapBField": ["0.0001"],
@@ -805,7 +805,7 @@ DDMarlinPandora.Parameters = {
     "UseOldTrackStateCalculation": ["0"],
     "UseUnmatchedNonVertexTracks": ["0"],
     "UseUnmatchedVertexTracks": ["1"],
-    "UseDD4hepField": ["true"],
+    "UseDD4hepField": ["false"],
     "V0VertexCollections": ["V0Vertices"],
     "YokeBarrelNormalVector": ["0", "0", "1"],
     "Z0TrackCut": ["200"],
